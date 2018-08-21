@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Ionic Firebase Todo
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label>Task</ion-label>
+      <ion-input type="text" [(ngModel)]="task.title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY" [min]="today" max="2050-12-31" pickerFormat="MM/DD/YYYY" [(ngModel)]="task.remindAt"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Time</ion-label>
+      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="task.remindTime"></ion-datetime>
+    </ion-item>
+    <button ion-button block (click)="addTask()">Add Task</button>
+  </ion-list>
+  <ion-list>
+<ion-item-sliding *ngFor="let task of tasksList;">
+    <ion-item>
+        <ion-icon style="color: green;" *ngIf="task.isCompleted" name="done-all"></ion-icon> {{task.title}}
+    </ion-item>
+    <ion-item-options side="left">
+      <button ion-button color="secondary" (click)="updateTask(task.key)">
+        <ion-icon name="done-all"></ion-icon>
+      </button>
+    </ion-item-options>
+    <ion-item-options side="right">
+      <button ion-button color="danger" (click)="deleteTask(task.key)">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-item-options>
+</ion-item-sliding>
+  </ion-list>
+</ion-content>
